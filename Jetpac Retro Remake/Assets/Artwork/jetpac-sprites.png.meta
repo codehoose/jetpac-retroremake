@@ -53,6 +53,24 @@ TextureImporter:
   - first:
       213: 6408038619179632071
     second: u4-top
+  - first:
+      213: -2753999971063097777
+    second: fuel
+  - first:
+      213: 6616361050996065553
+    second: gem
+  - first:
+      213: 4461482951484876135
+    second: pebble
+  - first:
+      213: -8017061688176677410
+    second: goldbar
+  - first:
+      213: 8089097193474528891
+    second: molecule
+  - first:
+      213: -3325502086903860252
+    second: radioactive
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -506,6 +524,132 @@ TextureImporter:
       bones: []
       spriteID: 7c5cf234c2dede850800000000000000
       internalID: 6408038619179632071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fuel
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 163
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f46195d1e93d7c9d0800000000000000
+      internalID: -2753999971063097777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 141
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 115c956225902db50800000000000000
+      internalID: 6616361050996065553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pebble
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 122
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 765a7be3b1f5aed30800000000000000
+      internalID: 4461482951484876135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goldbar
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 104
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edde5ddeedcadb090800000000000000
+      internalID: -8017061688176677410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: molecule
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 79
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7698a22a0f324070800000000000000
+      internalID: 8089097193474528891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: radioactive
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 57
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e37642a87179d1d0800000000000000
+      internalID: -3325502086903860252
       vertices: []
       indices: 
       edges: []

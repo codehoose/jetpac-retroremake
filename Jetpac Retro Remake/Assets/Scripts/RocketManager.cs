@@ -21,6 +21,8 @@ public class RocketManager : MonoBehaviour
     public RocketAsset[] rockets;
     public GameObject rocketPartPrefab;
 
+    public bool _shipIsWhole;
+
     private Vector3[] _startPositions = new Vector3[]
     {
         new Vector3(-72f, 32f),
@@ -44,6 +46,7 @@ public class RocketManager : MonoBehaviour
     {
         Vector3[] positions = splitRocket ? _startPositions : _startStationaryPositions;
         ShowRocketParts(rockets[rocketId], positions, splitRocket);
+        _shipIsWhole = !splitRocket;
     }
 
     public void DropPart(GameObject rocketPart, int rocketPartId)
@@ -66,6 +69,7 @@ public class RocketManager : MonoBehaviour
         }
 
         rocketPart.transform.position = target;
+        _shipIsWhole = rocketPartId == 0;
     }
 
     public void ShowRocketParts(RocketAsset rocket, Vector3[] positions, bool splitRocket)
