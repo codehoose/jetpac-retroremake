@@ -11,6 +11,7 @@ public class Locomotion : MonoBehaviour
 
     private int _nextPartId = 1;
     private GameObject _currentPart;
+    private GameObject _currentFuelCell;
 
     void Awake()
     {
@@ -34,22 +35,46 @@ public class Locomotion : MonoBehaviour
         {
             PickupRocketPart(collision.gameObject);
         }
+        else if (collision.tag == "Pickup")
+        {
+            var root = collision.gameObject.transform.root.gameObject;
+            var pickup = root.GetComponent<Pickup>();
+            pickup._pickedUp = true;
+            DropManager.Instance.PickupObject(root);
+        }
+        else if (collision.tag == "Fuel")
+        {
+            var root = collision.gameObject.transform.root.gameObject;
+            PickupFuel(root);
+        }
     }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.name == "DropZone"
-            && _currentPart != null
             && Mathf.Abs(transform.position.x - collision.transform.position.x) < 2)
         {
-            _currentPart.transform.SetParent(null);
-            _currentPart.transform.position = new Vector3(DROP_ZONE_X, _currentPart.transform.position.y);
-            RocketManager.Instance.DropPart(_currentPart,
-                                            _currentPart.GetComponent<RocketPart>().partId);
+            if (_currentPart != null)
+            {
+                DropItem(_currentPart);
+                RocketManager.Instance.DropPart(_currentPart,
+                                                _currentPart.GetComponent<RocketPart>().partId);
 
-            _currentPart = null;
-            _nextPartId--;
+                _currentPart = null;
+                _nextPartId--;
+            } else if (_currentFuelCell != null)
+            {
+                DropItem(_currentFuelCell);
+                DropManager.Instance.DropFuel(_currentFuelCell);
+                _currentFuelCell = null;
+            }
         }
+    }
+
+    private void DropItem(GameObject go)
+    {
+        go.transform.SetParent(null);
+        go.transform.position = new Vector3(DROP_ZONE_X, go.transform.position.y);
     }
 
     private void PickupRocketPart(GameObject rocketPart)
@@ -60,5 +85,16 @@ public class Locomotion : MonoBehaviour
         rocketPart.transform.localPosition = Vector3.zero;
         rocketPart.GetComponent<BoxCollider2D>().enabled = false;
         _currentPart = rocketPart;
+    }
+
+    private void PickupFuel(GameObject fuel)
+    {
+        if (_currentFuelCell != null) return;
+
+        fuel.transform.SetParent(transform);
+        fuel.transform.localPosition = Vector3.zero;
+        fuel.GetComponent<BoxCollider2D>().enabled = false;
+        fuel.GetComponent<Rigidbody2D>().isKinematic = true;
+        _currentFuelCell = fuel;
     }
 }

@@ -191,8 +191,7 @@ GameObject:
   - component: {fileID: 368368057}
   - component: {fileID: 368368056}
   - component: {fileID: 368368055}
-  - component: {fileID: 368368058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: walk-right-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,22 +282,6 @@ Transform:
   m_Father: {fileID: 736575347}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &368368058
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368368054}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 14, y: 22}
-  m_Direction: 0
 --- !u!1 &425423985
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +694,8 @@ GameObject:
   - component: {fileID: 736575347}
   - component: {fileID: 736575346}
   - component: {fileID: 736575345}
-  m_Layer: 0
+  - component: {fileID: 736575348}
+  m_Layer: 6
   m_Name: Jetman
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -766,6 +750,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &736575348
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736575344}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 14, y: 22}
+  m_Direction: 0
 --- !u!1 &789900905
 GameObject:
   m_ObjectHideFlags: 0
