@@ -65,7 +65,10 @@ public class Locomotion : MonoBehaviour
             } else if (_currentFuelCell != null)
             {
                 DropItem(_currentFuelCell);
-                DropManager.Instance.DropFuel(_currentFuelCell);
+
+                _currentFuelCell.GetComponent<BoxCollider2D>().tag = "Dropped Fuel";
+                _currentFuelCell.GetComponent<BoxCollider2D>().enabled = true;
+                _currentFuelCell.GetComponent<Rigidbody2D>().isKinematic = false;
                 _currentFuelCell = null;
             }
         }

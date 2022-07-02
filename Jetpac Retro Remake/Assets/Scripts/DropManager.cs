@@ -6,14 +6,16 @@ public class DropManager : MonoBehaviour
 {
     private static DropManager _instance;
 
+    private static readonly int MAX_ITEMS = 2;
     private static readonly float LEFT_MOST_EDGE = -112f;
     private static readonly float DROP_WIDTH = 224f;
 
-    private int fuelCount = 0;
+    private bool _dropFuel = false;
 
     public float _dropRateSecs = 4f;
 
     public bool _isRunning = true;
+    
 
     private List<GameObject> _droppedItems = new List<GameObject>();
 
@@ -42,34 +44,38 @@ public class DropManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        List<GameObject> prefabs = new List<GameObject>();
-        List<GameObject> prefabsNoFuel = new List<GameObject>();
-        prefabsNoFuel.AddRange(pickups);
-        prefabs.AddRange(pickups);
-        prefabs.Add(fuel);
-
         while (true)
         {
             yield return new WaitForSeconds(_dropRateSecs);
-            if (_isRunning && _droppedItems.Count < 4)
+            if (_isRunning && _droppedItems.Count < MAX_ITEMS)
             {
-                // Do the drop thing
-                // TODO: Fuel will always drop. Stop it by checking on the state of the rocket
-                // i.e. Fuel can only drop if the rocket is in one piece
-                var prefabList = RocketManager.Instance._shipIsWhole ? prefabs : prefabsNoFuel;
-                GameObject prefab = DropFuel() ? fuel : prefabList[Random.Range(0, prefabList.Count)];
-                GameObject copy = Instantiate(prefab);
-                float x = LEFT_MOST_EDGE + (DROP_WIDTH * Random.Range(0f, 1f));
-                copy.transform.position = new Vector3(x, gameObject.transform.position.y);
-                _droppedItems.Add(copy);
+                if (RocketManager.Instance.State == RocketState.Fuelling)
+                {
+                    GameObject prefab  = _dropFuel ? fuel : pickups[Random.Range(0, pickups.Length)];
+                    GameObject copy = Instantiate(prefab);
+                    float x = LEFT_MOST_EDGE + (DROP_WIDTH * Random.Range(0f, 1f));
+                    copy.transform.position = new Vector3(x, gameObject.transform.position.y);
+                    _droppedItems.Add(copy);
+                    _dropFuel = !_dropFuel;
+                }
+                else if (RocketManager.Instance.State == RocketState.ReadyForTakeOff)
+                {
+                    GameObject prefab = pickups[Random.Range(0, pickups.Length)];
+                    GameObject copy = Instantiate(prefab);
+                    float x = LEFT_MOST_EDGE + (DROP_WIDTH * Random.Range(0f, 1f));
+                    copy.transform.position = new Vector3(x, gameObject.transform.position.y);
+                    _droppedItems.Add(copy);
+                }
             }
         }
     }
 
-    public void DropFuel(GameObject fuelPod)
-    {
-        StartCoroutine(DropFuelPod(fuelPod));
-    }
+    //public void DropFuel(GameObject fuelPod)
+    //{
+    //    if (_dropFuelCoroutine != null) return;
+    //    _dropFuelCoroutine = DropFuelPod(fuelPod);
+    //    StartCoroutine(_dropFuelCoroutine);
+    //}
 
     public void PickupObject(GameObject pickup)
     {
@@ -82,36 +88,25 @@ public class DropManager : MonoBehaviour
         }
     }
 
-    private bool DropFuel()
+    //private IEnumerator DropFuelPod(GameObject fuelPod)
+    //{
+    //    Vector3 start = fuelPod.transform.position;
+    //    Vector3 target = new Vector3(44, -80);
+
+    //    float time = 0f;
+    //    while (time < 1f)
+    //    {
+    //        fuelPod.transform.position = Vector3.Lerp(start, target, time);
+    //        time += Time.deltaTime / 2f;
+    //        yield return null;
+    //    }
+    //}
+
+    public void AddFuel(GameObject fuelPod)
     {
-        bool fuelInPlay = false;
-        for (int i = 0; i < _droppedItems.Count; i++)
-        {
-            if (_droppedItems[i].tag == "Fuel")
-            {
-                fuelInPlay = true;
-                break;
-            }
-        }
+        _droppedItems.Remove(fuelPod);
+        Destroy(fuelPod);
 
-        return RocketManager.Instance._shipIsWhole && !fuelInPlay && _droppedItems.Count == 3;
-    }
-
-    private IEnumerator DropFuelPod(GameObject fuelPod)
-    {
-        float endY = -88f + (fuelCount * 16f);
-        Vector3 start = fuelPod.transform.position;
-        Vector3 target = new Vector3(44, endY);
-
-        float time = 0f;
-        while (time < 1f)
-        {
-            fuelPod.transform.position = Vector3.Lerp(start, target, time);
-            time += Time.deltaTime / 2f;
-            yield return null;
-        }
-
-        fuelPod.transform.position = target;
-        fuelCount++;
+        RocketManager.Instance._fuelLevel++;
     }
 }

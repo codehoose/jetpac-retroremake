@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RocketManager : MonoBehaviour
 {
+    private static readonly int MAX_FUEL_PODS = 6;
+
     private static RocketManager _instance;
 
     public static RocketManager Instance
@@ -23,9 +25,11 @@ public class RocketManager : MonoBehaviour
     public RocketAsset[] rockets;
     public GameObject rocketPartPrefab;
 
-    public int _fuelLevel;
+    public bool _rocketInitialSplit = true;
 
-    public bool _shipIsWhole;
+    public int _fuelLevel;
+    
+    public RocketState State { get; set; }
 
     private Vector3[] _startPositions = new Vector3[]
     {
@@ -43,7 +47,7 @@ public class RocketManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        InitRocketPositions(0);
+        InitRocketPositions(0, _rocketInitialSplit);
         var lastFuelLevel = _fuelLevel;
         while (true)
         {
@@ -74,6 +78,11 @@ public class RocketManager : MonoBehaviour
                     }
 
                     _rocketParts[rocketId]._fuelCellCount = level;
+
+                    if (_fuelLevel == MAX_FUEL_PODS)
+                    {
+                        State = RocketState.ReadyForTakeOff;
+                    }
                 }
             }
 
@@ -85,7 +94,7 @@ public class RocketManager : MonoBehaviour
     {
         Vector3[] positions = splitRocket ? _startPositions : _startStationaryPositions;
         ShowRocketParts(rockets[rocketId], positions, splitRocket);
-        _shipIsWhole = !splitRocket;
+        State = splitRocket ? RocketState.InPieces : RocketState.Fuelling;
     }
 
     public void DropPart(GameObject rocketPart, int rocketPartId)
@@ -108,7 +117,7 @@ public class RocketManager : MonoBehaviour
         }
 
         rocketPart.transform.position = target;
-        _shipIsWhole = rocketPartId == 0;
+        State = rocketPartId == 0 ? RocketState.Fuelling : State;
     }
 
     public void ShowRocketParts(RocketAsset rocket, Vector3[] positions, bool splitRocket)

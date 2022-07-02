@@ -7,6 +7,7 @@ TagManager:
   - RocketPart
   - Pickup
   - Fuel
+  - Dropped Fuel
   layers:
   - Default
   - TransparentFX
