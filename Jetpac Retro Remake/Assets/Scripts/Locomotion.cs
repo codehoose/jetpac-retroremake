@@ -13,15 +13,25 @@ public class Locomotion : MonoBehaviour
     private GameObject _currentPart;
     private GameObject _currentFuelCell;
 
+    public GameObject shape;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        shape.SetActive(false);
     }
 
     public void ResetPartRequired() => _nextPartId = 1;
 
     private void Update()
     {
+        if (RocketManager.Instance.State == RocketState.Landing)
+        {
+            return;
+        }
+
+        if (!shape.activeInHierarchy) shape.SetActive(true);
+
         var horiz = Input.GetAxis("Horizontal");
         var vert = Input.GetAxis("Vertical");
         vert = vert > 0 ? vert : 0f;
