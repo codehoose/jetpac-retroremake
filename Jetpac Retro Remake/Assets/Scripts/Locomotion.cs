@@ -51,11 +51,13 @@ public class Locomotion : MonoBehaviour
             var pickup = root.GetComponent<Pickup>();
             pickup._pickedUp = true;
             DropManager.Instance.PickupObject(root);
+            ScoreManager.Instance.PickUpGem();
         }
         else if (collision.tag == "Fuel")
         {
             var root = collision.gameObject.transform.root.gameObject;
             PickupFuel(root);
+            ScoreManager.Instance.PickUpFuel();
         }
     }
 

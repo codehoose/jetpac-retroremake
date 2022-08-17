@@ -3,26 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RocketManager : MonoBehaviour
+public class RocketManager : SingletonMonoBehaviour<RocketManager>
 {
     private static readonly int MAX_FUEL_PODS = 6;
     private static readonly float ROCKET_CEILING = 136;
     private static readonly float ROCKET_TAKE_OFF_SPEED = 48f;
-
-    private static RocketManager _instance;
-
-    public static RocketManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<RocketManager>();
-            }
-
-            return _instance;
-        }
-    }
 
     private List<RocketPart> _rocketParts;
     List<RocketPartLandData> _rocketPartAdditional;

@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropManager : MonoBehaviour
+public class DropManager : SingletonMonoBehaviour<DropManager>
 {
-    private static DropManager _instance;
-
     private static readonly int MAX_ITEMS = 2;
     private static readonly float LEFT_MOST_EDGE = -112f;
     private static readonly float DROP_WIDTH = 224f;
@@ -21,20 +19,6 @@ public class DropManager : MonoBehaviour
 
     public GameObject[] pickups;
     public GameObject fuel;
-
-    public static DropManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<DropManager>();
-            }
-
-            return _instance;
-        }
-    }
-
 
     // Rules:
     //      Fuel is only active if the rocket is complete
