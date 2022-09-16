@@ -39,6 +39,14 @@ public class Locomotion : MonoBehaviour
         _rb.AddForce(new Vector2(horiz * _horizontalMuliplier, vert * _verticalMultiplier));
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Alien")
+        {
+            GameManager.Instance.PlayerDied();
+        }
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "RocketPart")
