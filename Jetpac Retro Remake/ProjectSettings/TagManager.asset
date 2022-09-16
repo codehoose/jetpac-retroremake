@@ -10,6 +10,8 @@ TagManager:
   - Dropped Fuel
   - Platform
   - Alien
+  - LeftSideBlock
+  - RightSideBlock
   layers:
   - Default
   - TransparentFX

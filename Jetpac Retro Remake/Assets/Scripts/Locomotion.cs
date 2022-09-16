@@ -14,6 +14,8 @@ public class Locomotion : MonoBehaviour
     private GameObject _currentFuelCell;
 
     public GameObject shape;
+    public JetmanAnimation jetmanShape;
+    public JetmanShadow shadow;
 
     void Awake()
     {
@@ -35,6 +37,16 @@ public class Locomotion : MonoBehaviour
         var horiz = Input.GetAxis("Horizontal");
         var vert = Input.GetAxis("Vertical");
         vert = vert > 0 ? vert : 0f;
+
+        if (horiz == 0 && vert == 0)
+        {
+            jetmanShape.Idle();
+        }
+        else
+        {
+            jetmanShape.FlipHorizontal = horiz < 0;
+            jetmanShape._isAnimating = true;
+        }
 
         _rb.AddForce(new Vector2(horiz * _horizontalMuliplier, vert * _verticalMultiplier));
     }
@@ -66,6 +78,44 @@ public class Locomotion : MonoBehaviour
             var root = collision.gameObject.transform.root.gameObject;
             PickupFuel(root);
             ScoreManager.Instance.PickUpFuel();
+        }
+        else if (collision.tag == "LeftSideBlock")
+        {
+            shadow.SetPlayer(this, new Vector3(256, 0));
+        }
+        else if (collision.tag == "RightSideBlock")
+        {
+            shadow.SetPlayer(this, new Vector3(-256, 0));
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "RightSideBlock")
+        {
+            if (transform.position.x > collision.gameObject.transform.position.x)
+            {
+                var worldPosition = shadow.transform.position;
+                transform.position = worldPosition;
+                shadow.SetPlayer(null, Vector3.zero);
+            }
+            else
+            {
+                shadow.SetPlayer(null, Vector3.zero);
+            }
+        }
+        else if (collision.tag == "LeftSideBlock")
+        {
+            if (transform.position.x < collision.gameObject.transform.position.x)
+            {
+                var worldPosition = shadow.transform.position;
+                transform.position = worldPosition;
+                shadow.SetPlayer(null, Vector3.zero);
+            }
+            else
+            {
+                shadow.SetPlayer(null, Vector3.zero);
+            }
         }
     }
 
