@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7cb660d8f366c642aa3e3fafab3ee34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 4275000365378036575, guid: 93dbecc7c19f2f84d82b8887e52bf87d, type: 3}
   shape: {fileID: 5753424921542382325}
   jetmanShape: {fileID: 7534489225054016016}
   shadow: {fileID: 5337700799897990065}
@@ -187,8 +188,14 @@ MonoBehaviour:
   - {fileID: 4552231608469089192, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
   - {fileID: 2958461912692941011, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
   - {fileID: -2648815806858622334, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
+  _inFlightSprites:
+  - {fileID: 7387775645860591268, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
+  - {fileID: -6789766834973217190, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
+  - {fileID: 6707552377155576113, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
+  - {fileID: -7712475109083564836, guid: 2991c7d444addab41a62c638a8653e88, type: 3}
   _idleFrame: 0
   _isAnimating: 0
+  _isInflight: 0
   currentFrame: 0
 --- !u!1 &8529065687211824232
 GameObject:
@@ -285,3 +292,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e23aa214312646a2aa0061bd8203e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRunning: 0

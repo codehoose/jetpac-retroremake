@@ -5,8 +5,10 @@ public class JetmanAnimation : MonoBehaviour
 {
     private SpriteRenderer _renderer;
     public Sprite[] _sprites;
+    public Sprite[] _inFlightSprites;
     public int _idleFrame;
     public bool _isAnimating;
+    public bool _isInflight;
     public int currentFrame = 0;
 
     public bool FlipHorizontal
@@ -26,9 +28,10 @@ public class JetmanAnimation : MonoBehaviour
         {
             if (_isAnimating)
             {
-                _renderer.sprite = _sprites[currentFrame];
+                var sprites = _isInflight ? _inFlightSprites : _sprites;
+                _renderer.sprite = sprites[currentFrame];
                 currentFrame++;
-                currentFrame %= _sprites.Length;
+                currentFrame %= sprites.Length;
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -37,6 +40,8 @@ public class JetmanAnimation : MonoBehaviour
 
     public void Idle()
     {
+        if (_isInflight || _renderer == null) return;
+
         _renderer.sprite = _sprites[_idleFrame];
         _isAnimating = false;
     }

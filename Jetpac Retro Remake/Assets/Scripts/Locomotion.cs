@@ -6,16 +6,24 @@ public class Locomotion : MonoBehaviour
 
     private Rigidbody2D _rb;
 
-    private float _verticalMultiplier = 5f;
-    private float _horizontalMuliplier = 5f;
+    private float _maxXSpeed = 32f;
+    private float _maxXAirSpeed = 64f;
+    private float _maxYSpeed = 64f;
+    private float _verticalMultiplier = 16f;
+    private float _horizontalMuliplier = 16f;
 
     private int _nextPartId = 1;
     private GameObject _currentPart;
     private GameObject _currentFuelCell;
 
+    public GameObject cloud;
     public GameObject shape;
     public JetmanAnimation jetmanShape;
     public JetmanShadow shadow;
+
+    private Vector2 _velocity;
+    private float _gravity = 0f;
+    private bool _applyGravity = false;
 
     void Awake()
     {
@@ -38,6 +46,9 @@ public class Locomotion : MonoBehaviour
         var vert = Input.GetAxis("Vertical");
         vert = vert > 0 ? vert : 0f;
 
+        if (vert != 0)
+            _gravity = 0f;
+
         if (horiz == 0 && vert == 0)
         {
             jetmanShape.Idle();
@@ -48,7 +59,26 @@ public class Locomotion : MonoBehaviour
             jetmanShape._isAnimating = true;
         }
 
-        _rb.AddForce(new Vector2(horiz * _horizontalMuliplier, vert * _verticalMultiplier));
+        _velocity += new Vector2(horiz * _horizontalMuliplier, vert * _verticalMultiplier);
+
+        var maxXSpeed = jetmanShape._isInflight ? _maxXAirSpeed : _maxXSpeed;
+        if (Mathf.Abs( _velocity.x) > maxXSpeed)
+            _velocity.x = maxXSpeed * Mathf.Sign(_velocity.x);
+
+        if (Mathf.Abs(_velocity.y) > _maxYSpeed)
+            _velocity.y = _maxYSpeed * Mathf.Sign(_velocity.y);
+
+        if (horiz == 0f)
+            _velocity.x = 0f;
+
+        if (vert == 0f)
+            _velocity.y = 0f;
+
+        if (_velocity.y == 0 && _applyGravity)
+            _gravity += -_maxXAirSpeed * Time.deltaTime;
+
+        _velocity.y += _gravity;
+        _rb.velocity = _velocity;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -56,6 +86,27 @@ public class Locomotion : MonoBehaviour
         if (collision.gameObject.tag == "Alien")
         {
             GameManager.Instance.PlayerDied();
+        }
+        else if (collision.gameObject.tag == "Platform")
+        {
+            if (gameObject.transform.position.y > collision.gameObject.transform.position.y)
+            {
+                jetmanShape.Idle();
+                jetmanShape._isInflight = false;
+                _applyGravity = false;
+                _gravity = 0;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            var copy = Instantiate(cloud);
+            copy.transform.position = gameObject.transform.position - new Vector3(0, 8, 0);
+            jetmanShape._isInflight = true;
+            _applyGravity = true;
         }
     }
 

@@ -113,6 +113,18 @@ TextureImporter:
   - first:
       213: -8357548306339325453
     second: Explosion3
+  - first:
+      213: 7387775645860591268
+    second: flight-1
+  - first:
+      213: -6789766834973217190
+    second: flight2
+  - first:
+      213: 6707552377155576113
+    second: flight3
+  - first:
+      213: -7712475109083564836
+    second: flight4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -238,10 +250,10 @@ TextureImporter:
       name: walk-right-4
       rect:
         serializedVersion: 2
-        x: 94
+        x: 93
         y: 194
-        width: 14
-        height: 22
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,10 +271,10 @@ TextureImporter:
       name: walk-right-3
       rect:
         serializedVersion: 2
-        x: 71
+        x: 70
         y: 194
-        width: 14
-        height: 22
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -280,10 +292,10 @@ TextureImporter:
       name: walk-right-2
       rect:
         serializedVersion: 2
-        x: 47
+        x: 46
         y: 194
-        width: 14
-        height: 22
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,10 +313,10 @@ TextureImporter:
       name: walk-right-1
       rect:
         serializedVersion: 2
-        x: 25
+        x: 24
         y: 194
-        width: 14
-        height: 22
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -936,7 +948,7 @@ TextureImporter:
         width: 24
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -957,7 +969,7 @@ TextureImporter:
         width: 24
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -978,7 +990,7 @@ TextureImporter:
         width: 24
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -986,6 +998,90 @@ TextureImporter:
       bones: []
       spriteID: 3f91a777816040c80800000000000000
       internalID: -8357548306339325453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flight-1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 195
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a67dcbcec6a68660800000000000000
+      internalID: 7387775645860591268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flight2
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 194
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e61bd8907e5c1a0800000000000000
+      internalID: -6789766834973217190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flight3
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 195
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1316fa05953061d50800000000000000
+      internalID: 6707552377155576113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flight4
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 195
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4380030c8c7f490800000000000000
+      internalID: -7712475109083564836
       vertices: []
       indices: 
       edges: []
