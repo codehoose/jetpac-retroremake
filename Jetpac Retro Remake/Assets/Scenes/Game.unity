@@ -560,7 +560,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 256, y: 8}
+  m_Size: {x: 360, y: 8}
   m_EdgeRadius: 0
 --- !u!4 &494736432
 Transform:
@@ -993,7 +993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &987916861
 Transform:
   m_ObjectHideFlags: 0

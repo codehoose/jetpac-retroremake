@@ -11,7 +11,7 @@ public class AlienManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
 
             GameObject copy = Instantiate(waveShapes[wave]);
 

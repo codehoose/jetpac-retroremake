@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Locomotion : MonoBehaviour
@@ -6,6 +7,7 @@ public class Locomotion : MonoBehaviour
 
     private Rigidbody2D _rb;
 
+    private bool _fired;
     private float _maxXSpeed = 32f;
     private float _maxXAirSpeed = 64f;
     private float _maxYSpeed = 64f;
@@ -21,6 +23,10 @@ public class Locomotion : MonoBehaviour
     public JetmanAnimation jetmanShape;
     public JetmanShadow shadow;
 
+    public GameObject bulletPrefab;
+
+    public Transform bulletSpawnPoint;
+
     private Vector2 _velocity;
     private float _gravity = 0f;
     private bool _applyGravity = false;
@@ -33,6 +39,53 @@ public class Locomotion : MonoBehaviour
 
     public void ResetPartRequired() => _nextPartId = 1;
 
+
+    IEnumerator Start()
+    {
+        while (RocketManager.Instance.State == RocketState.Landing)
+        {
+            yield return null;
+        }
+
+        float bulletCooldown = Bullet.COOLDOWN_PERIOD;
+
+        while (true)
+        {
+            if (_fired)
+            {
+                _fired = false;
+                var starting = bulletSpawnPoint.localPosition;
+                if (jetmanShape.FlipHorizontal)
+                {
+                    starting *= -1;
+                }
+                starting += jetmanShape.transform.position;
+
+                for (int i = 0; i < 16; i++)
+                {
+                    var bullet = Instantiate(bulletPrefab);
+                    bullet.transform.position = starting;
+                    float direction = jetmanShape.FlipHorizontal ? -8f : 8f;
+                    starting += new Vector3(direction, 0, 0);
+                    if (starting.x < -128f)
+                    {
+                        starting.x += 256f;
+                    }
+                    else if (starting.x > 128f)
+                    {
+                        starting.x -= 256f;
+                    }
+                }
+                yield return new WaitForSeconds(bulletCooldown);
+            }
+            else
+            {
+                yield return null;
+            }
+
+        }
+    }
+
     private void Update()
     {
         if (RocketManager.Instance.State == RocketState.Landing)
@@ -44,6 +97,9 @@ public class Locomotion : MonoBehaviour
 
         var horiz = Input.GetAxis("Horizontal");
         var vert = Input.GetAxis("Vertical");
+
+        _fired = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
         vert = vert > 0 ? vert : 0f;
 
         if (vert != 0)

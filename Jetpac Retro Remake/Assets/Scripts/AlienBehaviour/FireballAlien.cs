@@ -17,6 +17,17 @@ public class FireballAlien : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Laser")
+        {
+            ScoreManager.Instance.KillAlien();
+            var copy = Instantiate(explosion);
+            copy.transform.position = transform.position;
+            Destroy(gameObject);
+        }
+    }
+
     private void Update()
     {
         transform.position += new Vector3(xDirection, yGradient) * speed * Time.deltaTime;
