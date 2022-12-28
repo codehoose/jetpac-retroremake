@@ -8,6 +8,7 @@ public static class LevelLoader
     public static string WAVE = nameof(WAVE);
     public static string LIVES = nameof(LIVES);
     public static int DefaultLives = 3;
+    public static int DefaultHiScore = 10000;
 
     public static void LoadLevel(int wave, int score, int hiscore, int lives)
     {
@@ -18,6 +19,11 @@ public static class LevelLoader
 
         string sceneName = "Game";
         SceneManager.LoadScene(sceneName);
+    }
+
+    public static void StartCleanGame()
+    {
+        LoadLevel(0, 0, DefaultHiScore, DefaultLives);
     }
 
     public static GameState GetGameState()

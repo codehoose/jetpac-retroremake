@@ -58,7 +58,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     public void Start()
     {
-        _score = GameManager.Instance.GameState.score;
-        _hiScore = GameManager.Instance.GameState.hiscore;
+        Score = GameManager.Instance.GameState.score;
+        HiScore = GameManager.Instance.GameState.hiscore;
     }
 }

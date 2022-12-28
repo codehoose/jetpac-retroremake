@@ -6,6 +6,8 @@ public class HiScoreListener : MonoBehaviour
 
     void Start()
     {
+        _scoreIndicator.text = $"{ScoreManager.Instance.HiScore:000000}";
+
         ScoreManager.Instance.PropertyChanged += (o, propertyName) =>
         {
             if (propertyName == "HiScore")
