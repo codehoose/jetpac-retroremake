@@ -42,12 +42,16 @@ public class Locomotion : MonoBehaviour
 
     IEnumerator Start()
     {
+        // Make sure that Jetman falls if he's slightly above the ground
+        _applyGravity = true;
+
         while (RocketManager.Instance.State == RocketState.Landing)
         {
             yield return null;
         }
 
         float bulletCooldown = Bullet.COOLDOWN_PERIOD;
+        AlienManager alienManager = FindObjectOfType<AlienManager>();
 
         while (true)
         {
@@ -61,10 +65,14 @@ public class Locomotion : MonoBehaviour
                 }
                 starting += jetmanShape.transform.position;
 
-                for (int i = 0; i < 16; i++)
+                Color color = alienManager.spectrumColours[Random.Range(0, alienManager.spectrumColours.Length)];
+
+                for (int i = 0; i < 16 + Random.Range(0, 4); i++)
                 {
                     var bullet = Instantiate(bulletPrefab);
+                    bullet.GetComponent<SpriteRenderer>().color = color;
                     bullet.transform.position = starting;
+                    
                     float direction = jetmanShape.FlipHorizontal ? -8f : 8f;
                     starting += new Vector3(direction, 0, 0);
                     if (starting.x < -128f)
@@ -77,6 +85,7 @@ public class Locomotion : MonoBehaviour
                     }
                 }
                 yield return new WaitForSeconds(bulletCooldown);
+                
             }
             else
             {
