@@ -192,8 +192,11 @@ public class Locomotion : MonoBehaviour
         else if (collision.tag == "Fuel")
         {
             var root = collision.gameObject.transform.root.gameObject;
-            PickupFuel(root);
-            ScoreManager.Instance.PickUpFuel();
+            if (!root.GetComponent<Pickup>()._falling)
+            {
+                PickupFuel(root);
+                ScoreManager.Instance.PickUpFuel();
+            }
         }
         else if (collision.tag == "LeftSideBlock")
         {
@@ -251,10 +254,10 @@ public class Locomotion : MonoBehaviour
             } else if (_currentFuelCell != null)
             {
                 DropItem(_currentFuelCell);
-
                 _currentFuelCell.GetComponent<BoxCollider2D>().tag = "Dropped Fuel";
                 _currentFuelCell.GetComponent<BoxCollider2D>().enabled = true;
                 _currentFuelCell.GetComponent<Rigidbody2D>().isKinematic = false;
+                _currentFuelCell.GetComponent<Pickup>()._falling = true;
                 _currentFuelCell = null;
             }
         }

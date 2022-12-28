@@ -9,6 +9,8 @@ public class AlienManager : MonoBehaviour
 
     IEnumerator Start()
     {
+        wave = GameManager.Instance.GameState.wave % 8; // There are only 8 alien types
+
         while (true)
         {
             yield return new WaitForSeconds(3f);

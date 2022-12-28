@@ -16,7 +16,6 @@ public class RocketManager : SingletonMonoBehaviour<RocketManager>
     public GameObject rocketEntryZone;
 
     public bool _rocketInitialSplit = true;
-
     public int _fuelLevel;
     
     public RocketState State { get; set; }
@@ -45,6 +44,9 @@ public class RocketManager : SingletonMonoBehaviour<RocketManager>
     IEnumerator Start()
     {
         rocketEntryZone.GetComponent<RocketEntryZone>().PlayerEntered += RocketManager_PlayerEntered;
+
+        GameState gameState = GameManager.Instance.GameState;
+        _rocketInitialSplit = (gameState.wave % 4) == 0;
 
         InitRocketPositions(0, _rocketInitialSplit);
         var lastFuelLevel = _fuelLevel;
@@ -95,9 +97,8 @@ public class RocketManager : SingletonMonoBehaviour<RocketManager>
                         part.transform.position += new Vector3(0, ROCKET_TAKE_OFF_SPEED, 0) * Time.deltaTime;
                         if (part.transform.position.y >= ROCKET_CEILING)
                         {
-                            // TODO: LOAD NEXT SCENE....
-                            // Save player state + move to next scene
-                            SceneManager.LoadScene("Game");
+                            int wave = gameState.wave + 1;
+                            LevelLoader.LoadLevel(wave + 1, ScoreManager.Instance.Score, ScoreManager.Instance.Score, 0);
                         }
                     }
                     break;

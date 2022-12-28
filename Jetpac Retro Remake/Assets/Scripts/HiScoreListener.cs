@@ -3,18 +3,17 @@ using UnityEngine;
 public class HiScoreListener : MonoBehaviour
 {
     public TMPro.TMP_Text _scoreIndicator;
-    int _hiScore;
 
     void Start()
     {
         ScoreManager.Instance.PropertyChanged += (o, propertyName) =>
         {
-            if (propertyName == "Score")
+            if (propertyName == "HiScore")
             {
-                if (ScoreManager.Instance.Score > _hiScore)
+                if (ScoreManager.Instance.Score >= ScoreManager.Instance.HiScore)
                 {
-                    _hiScore = ScoreManager.Instance.Score;
-                    _scoreIndicator.text = $"{_hiScore:000000}";
+                    int hiScore = ScoreManager.Instance.HiScore;
+                    _scoreIndicator.text = $"{hiScore:000000}";
                 }
             }
         };

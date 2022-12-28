@@ -5,6 +5,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     private GameObject _currentPlayer;
 
+    private GameState _gameState;
+
     public GameObject player;
 
     public GameObject explosion;
@@ -13,9 +15,23 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         StartCoroutine(KillPlayer());
     }
+
+    public GameState GameState
+    {
+        get
+        {
+            if (_gameState.type == GameStateType.Invalid)
+            {
+                _gameState = LevelLoader.GetGameState();
+            }
+
+            return _gameState;
+        }
+    }
     
     private void Start()
     {
+        _gameState = new GameState() { type = GameStateType.Invalid };
         _currentPlayer = Instantiate(player);
     }
 

@@ -16,7 +16,7 @@ public static class LevelLoader
         PlayerPrefs.SetInt(WAVE, wave);
         PlayerPrefs.SetInt(LIVES, lives);
 
-        string sceneName = $"wave{wave % 8}"; // There are 8 enemies
+        string sceneName = "Game";
         SceneManager.LoadScene(sceneName);
     }
 
@@ -27,8 +27,14 @@ public static class LevelLoader
         int wave = PlayerPrefs.GetInt(WAVE, 0);
         int lives = PlayerPrefs.GetInt(LIVES, 0);
 
-        return new GameState { score = score, lives = lives, hiscore = hiscore, wave = wave };
+        return new GameState { score = score, lives = lives, hiscore = hiscore, wave = wave, type= GameStateType.Valid };
     }
+}
+
+public enum GameStateType
+{
+    Invalid,
+    Valid
 }
 
 public struct GameState
@@ -37,4 +43,5 @@ public struct GameState
     public int hiscore;
     public int wave;
     public int lives;
+    public GameStateType type;
 }

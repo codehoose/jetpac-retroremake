@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 {
     private int _score;
+    private int _hiScore;
 
     public event EventHandler<string> PropertyChanged;
 
@@ -13,6 +14,16 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         set
         {
             _score = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int HiScore
+    {
+        get { return _hiScore; }
+        set
+        {
+            _hiScore = value;
             OnPropertyChanged();
         }
     }
@@ -35,5 +46,19 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, propertyName);
+
+        if (propertyName == "Score")
+        {
+            if (Score > _hiScore)
+            {
+                HiScore = Score;
+            }
+        }
+    }
+
+    public void Start()
+    {
+        _score = GameManager.Instance.GameState.score;
+        _hiScore = GameManager.Instance.GameState.hiscore;
     }
 }
