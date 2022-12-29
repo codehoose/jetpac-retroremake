@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class FireballAlien : MonoBehaviour
 {
@@ -34,5 +35,19 @@ public class FireballAlien : MonoBehaviour
 
         if (Mathf.Abs(transform.position.x) > 185)
             Destroy(gameObject);
+    }
+
+    internal void Init()
+    {
+        bool isRight = Random.Range(0f, 1f) > .5f;
+        float x = isRight ? 180 : -180;
+        float y = -88 + Random.Range(0f, 176);
+
+        transform.position = new Vector3(x, y, 0);
+        GetComponent<AlienInit>().flipAlien = isRight;
+
+        xDirection = isRight ? -1 : 1;
+        yGradient = -0.25f + Random.Range(0f, 0.5f);
+        speed = 16 + Random.Range(0, 4f);
     }
 }
