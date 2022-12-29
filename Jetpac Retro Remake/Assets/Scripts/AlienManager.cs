@@ -20,9 +20,20 @@ public class AlienManager : MonoBehaviour
 
             switch (wave)
             {
-                case 0:
-                    FireballAlien alien = copy.GetComponent<FireballAlien>();
-                    alien.Init();
+                case 0: // Fireballs
+                    FireballAlien fireball = copy.GetComponent<FireballAlien>();
+                    fireball.Init();
+                    break;
+                case 2: // Balls
+                case 4: // Ufos
+                    FollowAlien follow = copy.GetComponent<FollowAlien>();
+                    follow.Init();
+                    break;
+                case 1: // Fuzzies
+                case 5: // Crosses
+                case 7: // Frogs
+                    BouncingAlien bouncing = copy.GetComponent<BouncingAlien>();
+                    bouncing.Init();
                     break;
             }
         }

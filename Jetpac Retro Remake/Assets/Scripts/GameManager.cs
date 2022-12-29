@@ -11,6 +11,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public GameObject explosion;
 
+    public GameObject ThePlayer => _currentPlayer;
+
     public void PlayerDied()
     {
         StartCoroutine(KillPlayer());
