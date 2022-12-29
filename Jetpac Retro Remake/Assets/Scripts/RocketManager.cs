@@ -48,7 +48,7 @@ public class RocketManager : SingletonMonoBehaviour<RocketManager>
         GameState gameState = GameManager.Instance.GameState;
         _rocketInitialSplit = (gameState.wave % 4) == 0;
 
-        InitRocketPositions(0, _rocketInitialSplit);
+        InitRocketPositions(gameState.wave / 4, _rocketInitialSplit);
         var lastFuelLevel = _fuelLevel;
         bool flash = false;
         while (true)
