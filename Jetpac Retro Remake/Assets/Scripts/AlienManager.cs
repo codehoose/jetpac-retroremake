@@ -29,6 +29,10 @@ public class AlienManager : MonoBehaviour
                     FollowAlien follow = copy.GetComponent<FollowAlien>();
                     follow.Init();
                     break;
+                case 3: // Planes
+                    PlaneBehaviour plane = copy.GetComponent<PlaneBehaviour>();
+                    plane.Init();
+                    break;
                 case 1: // Fuzzies
                 case 5: // Crosses
                 case 7: // Frogs
